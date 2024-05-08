@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+
+<style>
+.error {
+  color: red;
+}
+</style>
+</head>
+<body>
+
+<h2>Form Validation</h2>
+
+<form id="myForm">
+  <label for="name">Name:</label><br>
+  <input type="text" id="name" name="name"><br>
+  <span id="nameError" class="error"></span><br>
+
+  <label for="email">Email:</label><br>
+  <input type="text" id="email" name="email"><br>
+  <span id="emailError" class="error"></span><br>
+
+  <label for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br>
+  <span id="passwordError" class="error"></span><br>
+
+  <label for="confirmPassword">Confirm Password:</label><br>
+  <input type="password" id="confirmPassword" name="confirmPassword"><br>
+  <span id="confirmPasswordError" class="error"></span><br>
+
+  <label for="dob">Date of Birth:</label><br>
+  <input type="date" id="dob" name="dob"><br>
+  <span id="dobError" class="error"></span><br>
+
+  <label for="department">Department:</label><br>
+  <input type="text" id="department" name="department"><br>
+  <span id="departmentError" class="error"></span><br>
+
+  <label for="phone">Phone Number:</label><br>
+  <input type="text" id="phone" name="phone"><br>
+  <span id="phoneError" class="error"></span><br>
+
+  <label for="registerNumber">Register Number:</label><br>
+  <input type="text" id="registerNumber" name="registerNumber"><br>
+  <span id="registerNumberError" class="error"></span><br>
+
+  <label for="subject1">Subject 1 Mark:</label><br>
+  <input type="text" id="subject1" name="subject1"><br>
+  <span id="subject1Error" class="error"></span><br>
+
+  <label for="subject2">Subject 2 Mark:</label><br>
+  <input type="text" id="subject2" name="subject2"><br>
+  <span id="subject2Error" class="error"></span><br>
+
+  <label for="subject3">Subject 3 Mark:</label><br>
+  <input type="text" id="subject3" name="subject3"><br>
+  <span id="subject3Error" class="error"></span><br>
+
+  <label for="subject4">Subject 4 Mark:</label><br>
+  <input type="text" id="subject4" name="subject4"><br>
+  <span id="subject4Error" class="error"></span><br>
+
+  <label for="subject5">Subject 5 Mark:</label><br>
+  <input type="text" id="subject5" name="subject5"><br>
+  <span id="subject5Error" class="error"></span><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var phone = document.getElementById("phone").value;
+  var password = document.getElementById("password").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var dob = document.getElementById("dob").value;
+  var department = document.getElementById("department").value;
+  var registerNumber = document.getElementById("registerNumber").value;
+  var subject1 = parseInt(document.getElementById("subject1").value);
+  var subject2 = parseInt(document.getElementById("subject2").value);
+  var subject3 = parseInt(document.getElementById("subject3").value);
+  var subject4 = parseInt(document.getElementById("subject4").value);
+  var subject5 = parseInt(document.getElementById("subject5").value);
+  var nameError = document.getElementById("nameError");
+  var emailError = document.getElementById("emailError");
+  var phoneError = document.getElementById("phoneError");
+  var passwordError = document.getElementById("passwordError");
+  var confirmPasswordError = document.getElementById("confirmPasswordError");
+  var dobError = document.getElementById("dobError");
+  var departmentError = document.getElementById("departmentError");
+  var registerNumberError = document.getElementById("registerNumberError");
+  var subject1Error = document.getElementById("subject1Error");
+  var subject2Error = document.getElementById("subject2Error");
+  var subject3Error = document.getElementById("subject3Error");
+  var subject4Error = document.getElementById("subject4Error");
+  var subject5Error = document.getElementById("subject5Error");
+  var isValid = true;
+
+  // Reset previous errors
+  nameError.innerHTML = "";
+  emailError.innerHTML = "";
+  phoneError.innerHTML = "";
+  passwordError.innerHTML = "";
+  confirmPasswordError.innerHTML = "";
+  dobError.innerHTML = "";
+  departmentError.innerHTML = "";
+  registerNumberError.innerHTML = "";
+  subject1Error.innerHTML = "";
+  subject2Error.innerHTML = "";
+  subject3Error.innerHTML = "";
+  subject4Error.innerHTML = "";
+  subject5Error.innerHTML = "";
+
+  // Validate name field
+  if (name === "") {
+    nameError.innerHTML = "Name is required";
+    isValid = false;
+  }
+
+  // Validate email field
+  if (email === "") {
+    emailError.innerHTML = "Email is required";
+    isValid = false;
+  } else if (!isValidEmail(email)) {
+    emailError.innerHTML = "Invalid email address";
+    isValid = false;
+  }
+
+  // Validate phone number field
+  if (phone === "") {
+    phoneError.innerHTML = "Phone number is required";
+    isValid = false;
+  } else if (!isValidPhoneNumber(phone)) {
+    phoneError.innerHTML = "Invalid phone number";
+    isValid = false;
+  }
+
+  // Validate password field
+  if (password === "") {
+    passwordError.innerHTML = "Password is required";
+    isValid = false;
+  } else if (!isValidPassword(password)) {
+    passwordError.innerHTML = "Password must contain at least one special character, one number, and one alphabet character";
+    isValid = false;
+  }
+
+  // Validate confirm password field
+  if (confirmPassword === "") {
+    confirmPasswordError.innerHTML = "Confirm password is required";
+    isValid = false;
+  } else if (password !== confirmPassword) {
+    confirmPasswordError.innerHTML = "Passwords do not match";
+    isValid = false;
+  }
+
+  // Validate date of birth field
+  if (dob === "") {
+    dobError.innerHTML = "Date of Birth is required";
+    isValid = false;
+  }
+
+  // Validate department field
+  if (department === "") {
+    departmentError.innerHTML = "Department is required";
+    isValid = false;
+  }
+
+  // Validate register number field
+  if (registerNumber === "") {
+    registerNumberError.innerHTML = "Register number is required";
+    isValid = false;
+  } else if (!isValidRegisterNumber(registerNumber)) {
+    registerNumberError.innerHTML = "Register number must contain at least one numeric character and one alphabet character";
+    isValid = false;
+  }
+
+  // Validate subject marks
+  if (!isValidSubjectMark(subject1) || subject1 <= 50) {
+    subject1Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject2) || subject2 <= 50) {
+    subject2Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject3) || subject3 <= 50) {
+    subject3Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject4) || subject4 <= 50) {
+    subject4Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject5) || subject5 <= 50) {
+    subject5Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than 50";
+    isValid = false;
+  }
+
+  // Calculate total marks
+  var totalMarks = subject1 + subject2 + subject3 + subject4 + subject5;
+
+  // Display pass or fail based on total marks
+  var result = document.getElementById("result");
+  result.innerHTML = totalMarks >= 250 && subject1 >= 50 && subject2 >= 50 && subject3 >= 50 && subject4 >= 50 && subject5 >= 50 ? "Pass" : "Fail";
+
+  // Prevent form submission if not valid
+  if (!isValid) {
+    event.preventDefault();
+  }
+});
+
+function isValidEmail(email) {
+  // Very basic email validation, you can improve it using regex
+  return email.includes("@") && email.includes(".");
+}
+
+function isValidPhoneNumber(phone) {
+  // Very basic phone number validation, you can improve it using regex
+  return !isNaN(phone) && phone.length >= 8;
+}
+
+function isValidPassword(password) {
+  // Password must contain at least one special character, one number, and one alphabet character
+  var regex = /^(?=.*[!@#$%^&*])(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
+  return regex.test(password);
+}
+
+function isValidRegisterNumber(registerNumber) {
+  // Register number must contain at least one numeric character and one alphabet character
+  var regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+  return regex.test(registerNumber);
+}
+
+function isValidSubjectMark(mark) {
+  // Subject mark must be a number between 0 and 100
+  return !isNaN(mark) && mark >= 0 && mark <= 100;
+}
+</script>
+
+<p id="result"></p>
+
+</body>
+</html>
