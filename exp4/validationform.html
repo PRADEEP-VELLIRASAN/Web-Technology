@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="submit"],
+input[type="checkbox"] {
+  width: auto;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+}
+
+#result {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Form Validation</h2>
+
+  <form id="myForm">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name"><br>
+    <span id="nameError" class="error"></span><br>
+
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
+    <span id="emailError" class="error"></span><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <span id="passwordError" class="error"></span><br>
+
+    <label for="confirmPassword">Confirm Password:</label><br>
+    <input type="password" id="confirmPassword" name="confirmPassword"><br>
+    <span id="confirmPasswordError" class="error"></span><br>
+
+    <label for="dob">Date of Birth:</label><br>
+    <input type="date" id="dob" name="dob"><br>
+    <span id="dobError" class="error"></span><br>
+
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Other</label><br>
+    <span id="genderError" class="error"></span><br>
+
+    <label>Department:</label><br>
+    <input type="checkbox" id="department1" name="department" value="department1">
+    <label for="department1">INFORMATION TECHNOLOGY</label><br>
+    <input type="checkbox" id="department2" name="department" value="department2">
+    <label for="department2">COMPUTER SCIENCE ENGINEERING</label><br>
+    <input type="checkbox" id="department3" name="department" value="department3">
+    <label for="department3">ARTIFICIAL INTELLIGENCE AND DATA SCIENCE</label><br>
+    <input type="checkbox" id="department4" name="department" value="department4">
+    <label for="department4">ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING</label><br>
+    <span id="departmentError" class="error"></span><br>
+
+    <label for="phone">Phone Number:</label><br>
+    <input type="text" id="phone" name="phone"><br>
+    <span id="phoneError" class="error"></span><br>
+
+    <label for="registerNumber">Register Number:</label><br>
+    <input type="text" id="registerNumber" name="registerNumber"><br>
+    <span id="registerNumberError" class="error"></span><br>
+
+    <label for="subject1">Subject 1 Mark:</label><br>
+    <input type="text" id="subject1" name="subject1"><br>
+    <span id="subject1Error" class="error"></span><br>
+
+    <label for="subject2">Subject 2 Mark:</label><br>
+    <input type="text" id="subject2" name="subject2"><br>
+    <span id="subject2Error" class="error"></span><br>
+
+    <label for="subject3">Subject 3 Mark:</label><br>
+    <input type="text" id="subject3" name="subject3"><br>
+    <span id="subject3Error" class="error"></span><br>
+
+    <label for="subject4">Subject 4 Mark:</label><br>
+    <input type="text" id="subject4" name="subject4"><br>
+    <span id="subject4Error" class="error"></span><br>
+
+    <label for="subject5">Subject 5 Mark:</label><br>
+    <input type="text" id="subject5" name="subject5"><br>
+    <span id="subject5Error" class="error"></span><br>
+
+    <input type="submit" value="Submit">
+  </form>
+
+  <p id="result"></p>
+</div>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", function(event) {
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var phone = document.getElementById("phone").value;
+  var password = document.getElementById("password").value;
+  var confirmPassword = document.getElementById("confirmPassword").value;
+  var dob = document.getElementById("dob").value;
+  var gender = document.querySelector('input[name="gender"]:checked');
+  var departmentCheckboxes = document.querySelectorAll('input[name="department"]:checked');
+  var departmentError = document.getElementById("departmentError");
+  var registerNumber = document.getElementById("registerNumber").value;
+  var subject1 = parseInt(document.getElementById("subject1").value);
+  var subject2 = parseInt(document.getElementById("subject2").value);
+  var subject3 = parseInt(document.getElementById("subject3").value);
+  var subject4 = parseInt(document.getElementById("subject4").value);
+  var subject5 = parseInt(document.getElementById("subject5").value);
+  var nameError = document.getElementById("nameError");
+  var emailError = document.getElementById("emailError");
+  var phoneError = document.getElementById("phoneError");
+  var passwordError = document.getElementById("passwordError");
+  var confirmPasswordError = document.getElementById("confirmPasswordError");
+  var dobError = document.getElementById("dobError");
+  var genderError = document.getElementById("genderError");
+  var registerNumberError = document.getElementById("registerNumberError");
+  var subject1Error = document.getElementById("subject1Error");
+  var subject2Error = document.getElementById("subject2Error");
+  var subject3Error = document.getElementById("subject3Error");
+  var subject4Error = document.getElementById("subject4Error");
+  var subject5Error = document.getElementById("subject5Error");
+  var isValid = true;
+  nameError.innerHTML = "";
+  emailError.innerHTML = "";
+  phoneError.innerHTML = "";
+  passwordError.innerHTML = "";
+  confirmPasswordError.innerHTML = "";
+  dobError.innerHTML = "";
+  genderError.innerHTML = "";
+  departmentError.innerHTML = "";
+  registerNumberError.innerHTML = "";
+  subject1Error.innerHTML = "";
+  subject2Error.innerHTML = "";
+  subject3Error.innerHTML = "";
+  subject4Error.innerHTML = "";
+  subject5Error.innerHTML = "";
+
+  if (name === "") {
+    nameError.innerHTML = "Name is required";
+    isValid = false;
+  }
+
+  if (email === "") {
+    emailError.innerHTML = "Email is required";
+    isValid = false;
+  } else if (!isValidEmail(email)) {
+    emailError.innerHTML = "Invalid email address";
+    isValid = false;
+  }
+
+  
+  if (phone === "") {
+    phoneError.innerHTML = "Phone number is required";
+    isValid = false;
+  } else if (!isValidPhoneNumber(phone)) {
+    phoneError.innerHTML = "Invalid phone number";
+    isValid = false;
+  }
+
+  
+  if (password === "") {
+    passwordError.innerHTML = "Password is required";
+    isValid = false;
+  } else if (!isValidPassword(password)) {
+    passwordError.innerHTML = "Password must contain at least one special character, one number, and one alphabet character";
+    isValid = false;
+  }
+
+  
+  if (confirmPassword === "") {
+    confirmPasswordError.innerHTML = "Confirm password is required";
+    isValid = false;
+  } else if (password !== confirmPassword) {
+    confirmPasswordError.innerHTML = "Passwords do not match";
+    isValid = false;
+  }
+
+  
+  if (dob === "") {
+    dobError.innerHTML = "Date of Birth is required";
+    isValid = false;
+  }
+
+  if (!gender) {
+    genderError.innerHTML = "Gender is required";
+    isValid = false;
+  } else {
+    genderError.innerHTML = "";
+  }
+
+  if (departmentCheckboxes.length === 0) {
+    departmentError.innerHTML = "At least one department must be selected";
+    isValid = false;
+  }
+
+  if (registerNumber === "") {
+    registerNumberError.innerHTML = "Register number is required";
+    isValid = false;
+  } else if (!isValidRegisterNumber(registerNumber)) {
+    registerNumberError.innerHTML = "Register number must contain at least one numeric character and one alphabet character";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject1) || subject1 < 50) {
+    subject1Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than or equal to 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject2) || subject2 < 50) {
+    subject2Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than or equal to 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject3) || subject3 < 50) {
+    subject3Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than or equal to 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject4) || subject4 < 50) {
+    subject4Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than or equal to 50";
+    isValid = false;
+  }
+
+  if (!isValidSubjectMark(subject5) || subject5 < 50) {
+    subject5Error.innerHTML = "Subject mark must be a number between 0 and 100 and greater than or equal to 50";
+    isValid = false;
+  }
+
+  var totalMarks = subject1 + subject2 + subject3 + subject4 + subject5;
+
+  var result = document.getElementById("result");
+  result.innerHTML = totalMarks >= 250 && subject1 >= 50 && subject2 >= 50 && subject3 >= 50 && subject4 >= 50 && subject5 >= 50 ? "Pass" : "Fail";
+
+
+  if (!isValid) {
+    event.preventDefault();
+  }
+});
+
+function isValidEmail(email) {
+  return email.includes("@") && email.includes(".");
+}
+
+function isValidPhoneNumber(phone) {
+  return !isNaN(phone) && phone.length >= 8;
+}
+
+function isValidPassword(password) {
+  var regex = /^(?=.*[!@#$%^&*])(?=.*[a-zA-Z])(?=.*\d).{6,}$/;
+  return regex.test(password);
+}
+
+function isValidRegisterNumber(registerNumber) {
+  var regex = /^(?=.*[0-9])(?=.*[a-zA-Z]).{6,}$/;
+  return regex.test(registerNumber);
+}
+
+function isValidSubjectMark(mark) {
+  return !isNaN(mark) && mark >= 0 && mark <= 100;
+}
+</script>
+
+</body>
+</html>
